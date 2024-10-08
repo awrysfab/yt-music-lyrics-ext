@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Build script to minify JavaScript and CSS files, and create a zip file for the extension
-# Requires jq, terser, postcss-cli, autoprefixer, and cssnano to be installed
-# npm install -g jq terser postcss postcss-cli autoprefixer cssnano
+# Requires terser, postcss-cli, autoprefixer, and cssnano to be installed
+# npm install -g terser postcss postcss-cli autoprefixer cssnano
 
 set -e
 
@@ -42,7 +42,15 @@ sed -i.bak 's/href="options\.css"/href="options.min.css"/' src/options/options.h
 
 # Update manifest to use minified files
 mv templates/manifest.chrome.json manifest.json
-jq '.content_scripts[0].js = [
+
+# Use Node.js to update the manifest
+node <<EOF
+const fs = require('fs');
+const manifestPath = './manifest.json';
+
+let manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+
+manifest.content_scripts[0].js = [
   "src/core/constants.min.js",
   "src/core/utils.min.js",
   "src/core/storage.min.js",
@@ -52,7 +60,14 @@ jq '.content_scripts[0].js = [
   "src/modules/ui/observer.min.js",
   "src/modules/settings/settings.min.js",
   "src/index.min.js"
-] | .content_scripts[0].css = ["src/index.min.css"] | .background.service_worker = "src/background.min.js"' manifest.json >manifest.json.tmp && mv manifest.json.tmp manifest.json
+];
+
+manifest.content_scripts[0].css = ["src/index.min.css"];
+manifest.background.service_worker = "src/background.min.js";
+
+fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
+console.log('Manifest updated successfully.');
+EOF
 
 # Create zip file
 zip -r better-lyrics.zip ./* -x "./dist/*" "LICENSE" "README.md" "./templates/*" "*.DS_Store" "${SCRIPT_DIR}/*"
