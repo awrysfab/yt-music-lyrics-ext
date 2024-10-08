@@ -32,7 +32,9 @@
         "src/modules/ui/dom.js",
         "src/modules/ui/observer.js",
         "src/modules/settings/settings.js",
-        "src/index.js"
+        "src/index.js",
+       "src/libs/kuroshiro/kuroshiro.min.js",
+        "src/libs/kuroshiro/kuroshiro-analyzer-kuromoji.min.js"
       ],
       "css": ["src/index.css"]
     },
