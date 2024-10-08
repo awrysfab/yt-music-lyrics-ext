@@ -59,6 +59,8 @@ manifest.content_scripts[0].js = [
   "src/modules/ui/dom.min.js",
   "src/modules/ui/observer.min.js",
   "src/modules/settings/settings.min.js",
+  "src/libs/kuroshiro/kuroshiro.min.js",
+  "src/libs/kuroshiro/kuroshiro-analyzer-kuromoji.min.js",
   "src/index.min.js"
 ];
 

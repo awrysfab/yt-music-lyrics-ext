@@ -20,7 +20,10 @@
   "web_accessible_resources": [
     {
       "matches": ["*://music.youtube.com/*"],
-      "resources": ["src/script.js"]
+      "resources": [
+        "src/script.js",
+        "src/libs/kuroshiro/dict/*"
+      ]
     }
   ],
   "background": {
@@ -38,9 +41,9 @@
         "src/modules/ui/dom.js",
         "src/modules/ui/observer.js",
         "src/modules/settings/settings.js",
-        "src/index.js",
         "src/libs/kuroshiro/kuroshiro.min.js",
-        "src/libs/kuroshiro/kuroshiro-analyzer-kuromoji.min.js"
+        "src/libs/kuroshiro/kuroshiro-analyzer-kuromoji.min.js",
+        "src/index.js"
       ],
       "css": ["src/index.css"],
       "run_at": "document_end"

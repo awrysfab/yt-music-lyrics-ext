@@ -54,6 +54,10 @@
     rgba(0, 0, 0, 0.741) 64.7%, rgba(0, 0, 0, 0.825) 71%,
     rgba(0, 0, 0, 0.896) 77.5%, rgba(0, 0, 0, 0.951) 84.5%,
     rgba(0, 0, 0, 0.987) 91.9%, #000 100%;
+
+  /* Furigana */
+  --blyrics-furigana-color: rgba(255, 255, 255, 0.7);
+  --blyrics-furigana-font-size: 0.5em;
 }
 
 /* Main container styles */
@@ -709,4 +713,14 @@ ytmusic-player-page:not([blyrics-stylized]) .blyrics-container > div.blyrics--ac
       --blyrics-background-img: unset !important;
     }
   }
+}
+
+.blyrics-container > div rt {
+  color: var(--blyrics-furigana-color);
+  font-size: var(--blyrics-furigana-font-size);
+  line-height: 1;
+}
+
+.blyrics-container > div ruby {
+  ruby-align: center;
 }
